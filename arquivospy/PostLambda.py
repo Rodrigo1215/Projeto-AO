@@ -1,12 +1,3 @@
-'''
-Esta função foi escrita para ser acessada via HTTP POST
-através de um API Gateway:
-  - Solicitação de Integração: Lambda, sem proxy
-  - Solicitação de método: Auth=None
-  - Com ativação de CORS
-'''
-
-
 import json
 from datetime import datetime
 import boto3
@@ -37,15 +28,15 @@ def lambda_handler(event, context):
         # permitindo PutItem para DynamoDB
         tableMensagens.put_item(
             Item={
-                'remetente': remetente, # Chave de Partição  no Banco
-                'data_hora': data_hora, # Chave de Ordenação no Banco
+                'remetente': remetente,
+                'data_hora': data_hora,
                 'destinatario': destinatario,
                 'mensagem': mensagem
             }
         )
 
-        return {
-        # Sucesso
+        return{
+            # Sucesso
             'statusCode': 200,
             'body': json.dumps('Mensagem de '
                                + remetente
