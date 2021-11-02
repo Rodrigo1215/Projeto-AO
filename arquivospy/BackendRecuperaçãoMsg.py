@@ -12,11 +12,11 @@ tabela = dynamodb.Table('MensagensDavi')
 
 def lambda_handler(event, context):
     response = tabela.query(
-        KeyConditionExpression = Key('origem').eq(event['from'])
+        KeyConditionExpression = Key('remetente').eq(event['from'])
     )
 
     for x in response['Items']:
-        if x['destino'] == event['to']:
+        if x['destinatario'] == event['to']:
             return x
 
     return None
